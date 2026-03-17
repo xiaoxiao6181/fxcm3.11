@@ -47,11 +47,11 @@
                                 <span  class="userlevel" style="display: inline-block;width: 100px;line-height: 20px;height: 20px;font-size: 16px;color: #ffffff;background: #7d5dd8;border-radius: 3px;"></span>
                             </p>
                             <div class="f_tab2" style="height: 80px;line-height: 80px;vertical-align: middle;">
-                                <span style="display:inline-block;width: 140px;color: white;background: #66b1ff;height: 40px;line-height: 40px;border-radius: 10px;margin-right: 10px;">
-                                    <a href="./recharge.html" class="">
-                                        <p data-i18n="mine.recharge">充值</p>
-                                    </a>
-                                </span>
+                                <span id="topServiceBtn" style="display:inline-block;width: 140px;color: white;background: #66b1ff;height: 40px;line-height: 40px;border-radius: 10px;margin-right: 10px;">
+    <a href="javascript:void(0);" class="">
+        <p data-i18n="mine.recharge">充值</p>
+    </a>
+</span>
                                 <span style="display:inline-block;width: 140px;color: white;background: #66b1ff;height: 40px;line-height: 40px;border-radius: 10px;margin-left: 10px;">
                                     <a href="./cash.html" class="">
                                         <p data-i18n="mine.withdraw">提现</p>
@@ -221,12 +221,19 @@
                             $(".userlevel").text(userInfo.level_name);
                             
                             AjaxUtil.get('/index/index/getConfigInfo').then(res => {
-                                localStorage.setItem('config', JSON.stringify(res.data));
-                                $(".f_mine_header").attr('src', baseConfig.baseUrl + res.data.login_img);
-                                $("#service").click(function(){
-                                    location.href = res.data.service;
-                                });
-                            });
+    localStorage.setItem('config', JSON.stringify(res.data));
+    $(".f_mine_header").attr('src', baseConfig.baseUrl + res.data.login_img);
+
+    // 列表客服
+    $("#service").click(function(){
+        location.href = res.data.service;
+    });
+
+    // 顶部按钮客服
+    $("#topServiceBtn").click(function(){
+        location.href = res.data.service;
+    });
+});
                             
                             // 监听语言变化事件
                             $(document).on('languageChanged', function(event, lang) {
