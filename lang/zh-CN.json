@@ -28,7 +28,7 @@
   },
   "home": {
     "homeTitle": "行情",
-    "recharge": "充值",
+    "recharge": "汇入",
     "customerService": "客服",
     "my": "我的",
     "productName": "商品名称",
@@ -95,8 +95,8 @@
   },
   "mine": {
     "title": "我的",
-    "recharge": "充值",
-    "withdraw": "提现",
+    "recharge": "汇入",
+    "withdraw": "汇出",
     "customerService": "客服",
     "withdrawRecord": "提现记录",
     "rechargeRecord": "充值记录",
@@ -337,8 +337,8 @@
   "wallet": {
     "walletTitle": "我的钱包",
     "totalBalance": "总余额",
-    "recharge": "充值",
-    "withdraw": "提现",
+    "recharge": "汇入",
+    "withdraw": "汇出",
     "exchange": "兑换",
     "developing": "开发中",
     "cashWallet": "现金钱包"
