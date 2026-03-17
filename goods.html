@@ -728,10 +728,10 @@
 		$(".look").click(function(){
 			
 			console.log($(this).attr('data'))
-			if(!isRealMe){
-				alert('请先实名认证')
-				return
-			}
+		//	if(!isRealMe){
+		//		alert('请先实名认证')
+		//		return
+		//	}
 			toggle_order_confirm_panel($(this).attr('data'));
 			// 更新订单类型显示
 			setTimeout(updateOrderTypeDisplay, 100);
@@ -740,13 +740,13 @@
 			alert('按钮被点')
 		})
 	
-		AjaxUtil.get('/index/user/getAuthCertification').then(res => {
-		    console.log(res);
+	//	AjaxUtil.get('/index/user/getAuthCertification').then(res => {
+	//	    console.log(res);
 			
-		    if (res.code == 1&&res.data.info&&res.data.info.review_status==1) {
-				isRealMe=true
-			}
-		})
+	//	    if (res.code == 1&&res.data.info&&res.data.info.review_status==1) {
+	//			isRealMe=true
+	//		}
+	//	})
         if(config){
         	config=JSON.parse(config)
 			order_min_price=config.order_min
