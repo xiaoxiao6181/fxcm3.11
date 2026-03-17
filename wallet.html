@@ -156,7 +156,7 @@
                             <img src="./static/img/yeb1.png" alt="">
                             <span class="text1" data-i18n="wallet.cashWallet">现金钱包</span>
                             <div>
-                              <!--  <span class="text2 totalMoney" style="float:left"></span>  -->
+                                <span class="text2 totalMoney" style="float:left"></span>
                                 <span class="text2" style="float:right;margin-right:10px">=<span class=" totalMoney"></span></span>
                             </div>
                         </li>
@@ -362,15 +362,17 @@
                     $(".tipMask").show();
                 }
                 (async function() {
-    console.log('开始执行...');
-    let userInfo = await getUserInfo();
-
-    // 总余额加上空格和 $
+					console.log('开始执行...');
+					let userInfo=await getUserInfo();
+					$(".totalMoney").text(userInfo.money)
+					// 总余额加上 $
     $(".totalMoney").first().text(userInfo.money + ' $');
 
-    // 现金钱包右边换算金额加上空格和 $
+    // 现金钱包右边换算金额也加上 $
     $(".contentlist .totalMoney").last().text(userInfo.money + ' $');
-})();
+					
+					
+				})();
                 $( function() {
                     // 加载用户信息
          
