@@ -175,7 +175,7 @@ function show_order_list() {
                         <section>\
                             <p style="margin: 0;display: flex;">\
                                 <span class="ng-binding">' + v.ptitle + '</span>\
-                                <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
+                                <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（$' + v.fee + '）</span>\
                             </p>\
                             <p style="margin: 0" class="ng-binding">\
                                 ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + newprice + '</span>\
@@ -292,7 +292,7 @@ function setolist(types) {
 			                    <p style="margin: 0;display: flex;">\
 			                        <span class="ng-binding">' + v.ptitle + '</span>\
 			                        <span style="align-items: center;display: flex;"  class="ng-binding ' + closeprice_class + '">\
-			                        <i  class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
+			                        <i  class="' + ostyle_class + '"></i>' + ostyle_name + '（$' + v.fee + '）</span>\
 			                    </p>\
 			                    <p class="ng-binding">\
 			                        ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + v.sellprice + '</span>\
