@@ -362,12 +362,15 @@
                     $(".tipMask").show();
                 }
                 (async function() {
-					console.log('开始执行...');
-					let userInfo=await getUserInfo();
-					$(".totalMoney").text(userInfo.money)
-					
-					
-				})();
+    console.log('开始执行...');
+    let userInfo = await getUserInfo();
+
+    // 总余额加上空格和 $
+    $(".totalMoney").first().text(userInfo.money + ' $');
+
+    // 现金钱包右边换算金额加上空格和 $
+    $(".contentlist .totalMoney").last().text(userInfo.money + ' $');
+})();
                 $( function() {
                     // 加载用户信息
          
