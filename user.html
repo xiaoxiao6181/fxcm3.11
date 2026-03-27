@@ -247,12 +247,14 @@
                         })();
                         
                         function logout() {
-							let code=localStorage.getItem('code')
-                            localStorage.clear();
-							if(code){
-								localStorage.setItem('code',code)
-							}
-                            location.href = './login.html';
+                            AjaxUtil.get('/index/user/logOut').then(res => {
+                                let code=localStorage.getItem('code')
+                                localStorage.clear();
+    							if(code){
+    								localStorage.setItem('code',code)
+    							}
+                                location.href = './login.html';
+                            });
                         }
                         function changelang(t) {
                             if (t == "list") {
