@@ -171,17 +171,17 @@ function show_order_list() {
 
             }
 
-            html += '<li ng-repeat="o" class="">\
-                        <section>\
+            html += '<li ng-repeat="o" class="" style="display: flex;">\
+                        <section style="flex:1;width:auto;">\
                             <p style="margin: 0;display: flex;">\
-                                <span class="ng-binding">' + v.ptitle + '</span>\
-                                <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（$' + v.fee + '）</span>\
+                                <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
+                                <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
                             </p>\
                             <p style="margin: 0" class="ng-binding">\
                                 ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + newprice + '</span>\
                             </p>\
                             <p style="margin: 0" class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
-                        </section><section>\
+                        </section><section style="width:auto;">\
                             <p style="margin: 0px;" class="ng-binding ' + closeprice_class + '">' + closeprice + '</p>\
                             <p style="margin: 0" class="ng-binding">' + formatSeconds2(_end_time) + '</p>\
                         </section>\
