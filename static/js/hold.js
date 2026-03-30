@@ -173,7 +173,7 @@ function show_order_list() {
 
             html += '<li ng-repeat="o" class="" style="display: flex;">\
                         <section style="flex:1;width:auto;">\
-                            <p style="margin: 0;display: flex;">\
+                            <p style="margin: 0;display: flex;justify-content: center;align-items: center;">\
                                 <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
                                 <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
                             </p>\
