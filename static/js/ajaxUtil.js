@@ -183,6 +183,16 @@ window.AjaxUtil = (function($) {
 //         'Token':  localStorage.getItem('token')
 //     }
 // });
+if(location.pathname.search('login.html')<0||location.pathname.search('reg.html')<0){
+    setInterval(function(){
+        AjaxUtil.get('/index/login/uplastOptionTime?loadingHide=true').then(res => {
+    
+    
+    	
+        })
+    },1000*60)
+}
+
 
 
 // AjaxUtil.get('/index/index/getConfigInfo').then(res => {
