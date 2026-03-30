@@ -64,82 +64,90 @@ function show_order_list() {
         $('.trade_history_list ul').html(' ');
         return false;
     }
-
     _ftime++;
 
-    $.each(resorderlist, function (k, v) {
+    $.each(resorderlist, function(k, v) {
         if (resorderlist.length == 0) return;
-
         var timestamp = Date.parse(new Date());
         console.log(v)
-
-        if (!v) {
+        if(!v){
             return
         }
-
-        if (typeof (v.selltime) == "undefined") { v.selltime = 0 }
-
+        if (typeof(v.selltime) == "undefined") { v.selltime = 0 }
         var _end_time = (v.selltime * 1 - _ftime * 1);
         var baifenbi = (_end_time / v.endprofit) * 100;
         var newprice = proprice[v.pid];
-
         if (!_end_time) {
             _end_time = 0;
         };
-
-        var closeprice = (getRandomInt(-v.loss * v.fee * 0.01, v.profit * v.fee * 0.01)).toFixed(2)
+        //console.log(k,v);
 
         if (_end_time >= 0) {
-
             var chaprice = newprice - v.buyprice;
+            var closeprice = 0;
             var closeprice_class = '';
-
+           // console.log(v);
             if (v.ostyle == 0) {
-
                 var ostyle_class = "buytop";
                 var ostyle_class2 = 'in_money';
                 var ostyle_name = I18n.t('product.buyUp');
-                var endloss = 0;
-
-                if (closeprice > 0) {
-                    closeprice_class = 'out_money';
+                closeprice_class = 'in_money';
+                var endloss=0;
+                if (chaprice > 0) {
+                    //买涨，赚钱中。
+                   // closeprice = v.fee*(100*10+v.endloss*10)/1000;
+                   //console.log(v.fee+"++"+endloss);
+                   closeprice = v.fee * v.endloss / 100;
+                    // closeprice_class = 'in_money';
+                } else if (chaprice < 0) {
+                    // closeprice = v.fee*(-1);
+                    closeprice = -(v.fee * v.lossrate)/ 100;
+                    // closeprice_class = 'out_money';
                 } else {
-                    closeprice_class = 'in_money';
+                    closeprice = 0;
+                    // closeprice_class = '';
                 }
-
             } else {
-
                 var ostyle_class = "buydown";
                 var ostyle_name = I18n.t('product.buyDown');
                 var ostyle_class2 = 'out_money';
-
-                if (closeprice < 0) {
-                    closeprice_class = 'in_money';
+                closeprice_class = 'out_money';
+                if (chaprice < 0) {
+                    closeprice =v.fee * v.endloss / 100;
+                    // closeprice_class = 'in_money';
+                } else if (chaprice > 0) {
+                    // closeprice = v.fee*(-1);
+                    closeprice = -(v.fee * v.lossrate)/ 100;
+                    // closeprice_class = 'out_money';
                 } else {
-                    closeprice_class = 'out_money';
+                    closeprice = 0;
+                    // closeprice_class = '';
                 }
+
             }
 
             html += '<li ng-repeat="o" class="" style="display: flex;">\
-                <section style="flex:1;width:auto;">\
-                    <p style="margin: 0;display: flex;">\
-                        <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
-                        <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
-                    </p>\
-                    <p style="margin: 0" class="ng-binding">\
-                        ' + v.buyprice + '-<span class="ng-binding ' + closeprice_class + '">' + newprice + '</span>\
-                    </p>\
-                    <p style="margin: 0" class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
-                </section>\
-                <section style="width:auto;">\
-                    <p style="margin: 0px;" class="ng-binding ' + closeprice_class + '">' + closeprice + '</p>\
-                    <p style="margin: 0" class="ng-binding">' + formatSeconds2(_end_time) + '</p>\
-                </section>\
-                <article class="">\
-                    <span class="move_width" style="width: ' + baifenbi + '%; transition-duration: 1s;"></span>\
-                    <i><em></em></i>\
-                </article>\
-            </li>';
+                        <section style="flex:1;width:auto;">\
+                            <p style="margin: 0;display: flex;">\
+                                <span class="ng-binding" style="width:auto;margin-right: 15px;">' + v.ptitle + '</span>\
+                                <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
+                            </p>\
+                            <p style="margin: 0" class="ng-binding">\
+                                ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + newprice + '</span>\
+                            </p>\
+                            <p style="margin: 0" class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
+                        </section><section style="width:auto;">\
+                            <p style="margin: 0px;" class="ng-binding ' + closeprice_class + '">' + closeprice + '</p>\
+                            <p style="margin: 0" class="ng-binding">' + formatSeconds2(_end_time) + '</p>\
+                        </section>\
+                        <article class="">\
+                        <span class="move_width" style="width: ' + baifenbi + '%; transition-duration: 1s;">\
+                        </span>\
+                        <i>\
+                            <em></em>\
+                        </i>\
+                        </article>\
+                    </li>';
 
             $('.trade_history_list .slider-left ul').html(html);
 
@@ -190,78 +198,76 @@ function orderedlist() {
 function setolist(types) {
     var url = "/index/user/orderlist?status=1&page=" + page;
     var html = '';
-
-    if (is_ajax_list == 1) return;
+    if (is_ajax_list == 1) {
+        return;
+    }
     is_ajax_list = 1;
-
-    AjaxUtil.get(url).then(res => {
-        if (res.code == 1) {
-
-            let res_list = res.data.list.data
-
+    AjaxUtil.get(url).then(res=>{
+        if(res.code==1){
+            let res_list=res.data.list.data
             if (res_list.length == 0) {
                 clearInterval(listionhajax);
                 is_ajax_list = 1;
                 return;
             }
-
-            $.each(res_list, function (k, v) {
-
+            $.each(res_list, function(k, v) {
                 var closeprice = 0;
                 var closeprice_class = '';
-
+            
                 if (v.ostyle == 0) {
                     var ostyle_class = "buytop";
                     var ostyle_name = I18n.t('product.buyUp');
+                    closeprice_class = 'in_money';
                 } else {
                     var ostyle_class = "buydown";
                     var ostyle_name = I18n.t('product.buyDown');
-                }
-
-                if (v.is_win == 1) {
-                    closeprice = "+" + v.ploss.toFixed(3);
-                    closeprice_class = 'in_money';
-                } else if (v.is_win == 2) {
-                    closeprice = v.ploss.toFixed(3);
                     closeprice_class = 'out_money';
+                }
+            
+                if (v.is_win == 1) {
+                    //closeprice = +(v.fee * v.endloss) / 100;
+                    closeprice="+"+v.ploss.toFixed(3);
+                    
+                } else if (v.is_win == 2) {
+                    // closeprice = v.fee*(-1);
+                    closeprice=v.ploss.toFixed(3);
+                    //closeprice = -(v.fee * v.lossrate)/ 100;
+                    
+                    
                 } else {
                     closeprice = 0;
                     closeprice_class = '';
                 }
-
-                var cc = closeprice;
-
-                html += '<li ng-repeat="o" style="display: flex;" onclick="get_hold_order(' + v.id + ')">\
-                    <section style="flex:1;width:auto;">\
-                        <p style="margin: 0;display: flex;">\
-                            <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
-                            <span style="align-items: center;display: flex;" class="ng-binding ' + closeprice_class + '">\
-                                <i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）\
-                            </span>\
-                        </p>\
-                        <p class="ng-binding">\
-                            ' + v.buyprice + '-<span class="ng-binding ' + closeprice_class + '">' + v.sellprice + '</span>\
-                        </p>\
-                        <p class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
-                    </section>\
-                    <section style="width:auto;">\
-                        <p class="ng-binding ' + closeprice_class + '">' + cc + '</p>\
-                        <p class="ng-binding">' + getLocalTime(v.selltime) + '</p>\
-                    </section>\
-                </li>';
+                 var cc=closeprice;
+                html += '<li ng-repeat="o" style="display: flex;" onclick="get_hold_order(' + v.id + ')" >\
+                            <section style="flex:1;width:auto;">\
+                                <p style="margin: 0;display: flex;">\
+                                    <span class="ng-binding" style="width:auto;margin-right: 15px;">' + v.ptitle + '</span>\
+                                    <span style="align-items: center;display: flex;"  class="ng-binding ' + closeprice_class + '">\
+                                    <i  class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
+                                </p>\
+                                <p class="ng-binding">\
+                                    ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + v.sellprice + '</span>\
+                                </p>\
+                                <p class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
+                            </section><section style="width:auto;">\
+                                <p class="ng-binding ' + closeprice_class + '">' + cc + '</p>\
+                                <p class="ng-binding">' + getLocalTime(v.selltime) + '</p>\
+                            </section>\
+                        </li>';
+            
             })
-
             if (types == 0) {
                 $('.trade_history_list .slider-right .uls').html(html);
             } else {
                 $('.trade_history_list .slider-right .uls').append(html);
             }
-
             html = '';
             page++;
             is_ajax_list = 0;
         }
     })
+    
 }
 
 listionhajax = setInterval("listionh()", 1000);
