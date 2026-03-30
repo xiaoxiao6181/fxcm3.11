@@ -233,7 +233,7 @@ function setolist(types) {
 
                 html += '<li ng-repeat="o" style="display: flex;" onclick="get_hold_order(' + v.id + ')">\
                     <section style="flex:1;width:auto;">\
-                        <p style="margin: 0;display: flex;justify-content: center;align-items: center;">\
+                        <p style="margin: 0;display: flex;">\
                             <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
                             <span style="align-items: center;display: flex;" class="ng-binding ' + closeprice_class + '">\
                                 <i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）\
