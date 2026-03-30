@@ -185,7 +185,7 @@ function show_order_list() {
                                   <i class="' + ostyle_class + '" style="margin-right:4px;"></i>
                                   ' + ostyle_name + '（￥' + v.fee + '）
                               </span>
-                          </p>
+                          </p>\
 
                                 <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
                                 <span style="align-items: center;display: flex;" class="ng-binding ' + ostyle_class2 + '"><i class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
