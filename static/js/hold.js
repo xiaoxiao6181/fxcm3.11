@@ -287,18 +287,18 @@ function setolist(types) {
 			        closeprice_class = '';
 			    }
 			     var cc=closeprice;
-			    html += '<li ng-repeat="o" onclick="get_hold_order(' + v.id + ')" >\
-			                <section>\
+			    html += '<li ng-repeat="o" style="display: flex;" onclick="get_hold_order(' + v.id + ')" >\
+			                <section style="flex:1;width:auto;">\
 			                    <p style="margin: 0;display: flex;">\
-			                        <span class="ng-binding">' + v.ptitle + '</span>\
+			                        <span class="ng-binding" style="width:auto;margin-right: 5px;">' + v.ptitle + '</span>\
 			                        <span style="align-items: center;display: flex;"  class="ng-binding ' + closeprice_class + '">\
-			                        <i  class="' + ostyle_class + '"></i>' + ostyle_name + '（$' + v.fee + '）</span>\
+			                        <i  class="' + ostyle_class + '"></i>' + ostyle_name + '（￥' + v.fee + '）</span>\
 			                    </p>\
 			                    <p class="ng-binding">\
 			                        ' + v.buyprice + '-<span  class="ng-binding ' + closeprice_class + '">' + v.sellprice + '</span>\
 			                    </p>\
 			                    <p class="ng-binding">' + getLocalTime(v.buytime) + '</p>\
-			                </section><section>\
+			                </section><section style="width:auto;">\
 			                    <p class="ng-binding ' + closeprice_class + '">' + cc + '</p>\
 			                    <p class="ng-binding">' + getLocalTime(v.selltime) + '</p>\
 			                </section>\
