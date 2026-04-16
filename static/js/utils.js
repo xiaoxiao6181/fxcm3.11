@@ -1,9 +1,9 @@
 
 
-let code=localStorage.getItem('code')
-if(!code){
-	location.href='./pass.html'
-}
+//let code=localStorage.getItem('code')
+//if(!code){
+//	location.href='./pass.html'
+//}
 
 function maskString(str) {
     if (typeof str !== 'string') return str;
