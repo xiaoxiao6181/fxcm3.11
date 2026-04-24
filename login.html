@@ -95,11 +95,12 @@
 			    
 			});
 			function forget(){
-  			  const config = JSON.parse(localStorage.getItem('config') || '{}');
-  			  if (config.service) {
-      			  window.location.href = config.service;
+    			const config = JSON.parse(localStorage.getItem('config') || '{}');
+
+   			 if (config.service) {
+      			  location.href = config.service;
   			  } else {
-      			  msg(I18n.t('common.prompt'), '未配置在线客服', 1);
+      			  msg(I18n.t('common.prompt'), '客服未配置', 1);
    			 }
 			}
 			function changelang(t) {
